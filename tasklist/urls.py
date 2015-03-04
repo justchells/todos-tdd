@@ -2,9 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 urlpatterns = patterns('',
-    # Examples:
     url(r'^$', 'todos.views.home_page', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
+    url(r'^todos/the-only-todo-list-in-the-world/$', 'todos.views.view_list', name='view_list'),
     #url(r'^admin/', include(admin.site.urls)),
 )
