@@ -25,7 +25,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('To-Do', self.browser.title)
         header_text = self.browser.find_element_by_tag_name('h1').text
         self.assertIn('To-Do', header_text)
-        
+
         # She is invited to enter a to-do item straight away
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
@@ -38,7 +38,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys('Buy peacock feathers')
 
         # When she hits enter, she is taken to a new URL,
-        # and now the page lists '1: Buy peacock feathers' as an item in a 
+        # and now the page lists '1: Buy peacock feathers' as an item in a
         # to-do list table
         inputbox.send_keys(Keys.ENTER)
         edith_list_url = self.browser.current_url
@@ -82,7 +82,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotEqual(francis_list_url, edith_list_url)
 
         # Again, there is no sign of Edith's list
-        page_text = self.browser.find_element_by_tag_name('body')
+        page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertNotIn('make a fly', page_text)
         self.assertIn('Buy milk', page_text)
