@@ -77,14 +77,6 @@ class ListViewTest(TestCase):
 
         self.assertRedirects(response, '/todos/%d/' % (correct_list.id,))
 
-    # def test_validation_errors_end_up_on_lists_page(self):
-    #     list_ = List.objects.create()
-    #     response = self.client.post('/todos/%d/' % (list_.id,), data={'text': ''})
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'list.html')
-    #     expected_error = escape("You can't have an empty list item")
-    #     self.assertContains(response, expected_error)
-
     def post_invalid_input(self):
         list_ = List.objects.create()
         return self.client.post('/todos/%d/' % (list_.id), data={'text': ''})
