@@ -24,6 +24,8 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+DOMAIN = "localhost"
+
 ALLOWED_HOSTS = []
 
 

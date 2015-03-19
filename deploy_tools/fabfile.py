@@ -29,10 +29,7 @@ def _get_latest_source(source_folder):
 def _update_settings(source_folder, site_name):
     settings_path = source_folder + '/tasklist/settings.py'
     sed(settings_path, 'Debug = True', 'Debug = False')
-    sed(settings_path,
-        'ALLOWED_HOSTS = .+$',
-        'ALLOWED_HOSTS = ["%s"]' % (site_name,)
-    )
+    sed(settings_path, 'DOMAIN = "localhost"', 'DOMAIN = "%s"' % (site_name,))
     secret_key_file = source_folder + '/tasklist/secret_key.py'
     if not exists(secret_key_file):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
