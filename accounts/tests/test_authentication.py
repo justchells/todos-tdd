@@ -47,7 +47,6 @@ class AuthenticateTest(TestCase):
         actual_user = User.objects.get(email='a@b.com')
         self.assertEqual(found_user, actual_user)
 
-
 class GetUserTest(TestCase):
 
     def test_gets_user_by_email(self):
