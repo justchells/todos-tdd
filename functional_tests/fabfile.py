@@ -18,4 +18,4 @@ def create_session_on_server(email):
         manage_py=_get_manage_dot_py(env.host),
         email=email,
     ))
-    print session_key
+    print(session_key)
