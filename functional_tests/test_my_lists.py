@@ -3,6 +3,8 @@ from .base import FunctionalTest
 from .server_tools import create_session_on_server
 from .management.commands.create_session import create_pre_authenticated_session
 
+import time
+
 class MyListsTest(FunctionalTest):
 
     def create_pre_authenticated_session(self, email):
@@ -23,7 +25,6 @@ class MyListsTest(FunctionalTest):
     def test_logged_in_users_lists_are_saved_as_my_lists(self):
         email = 'edith@example.com'
 
-        print(self.server_url)
         self.browser.get(self.server_url)
         self.wait_to_be_logged_out(email)
 
