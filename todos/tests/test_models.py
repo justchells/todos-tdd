@@ -1,6 +1,9 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 from todos.models import Item, List
 
 class ItemModelTest(TestCase):
@@ -15,33 +18,6 @@ class ItemModelTest(TestCase):
         item.list = list_
         item.save()
         self.assertIn(item, list_.item_set.all())
-
-    # def test_saving_and_retrieving_items(self):
-    #     list_ = List()
-    #     list_.save()
-
-    #     first_item = Item()
-    #     first_item.text = 'The first (ever) list item'
-    #     first_item.list = list_
-    #     first_item.save()
-
-    #     second_item = Item()
-    #     second_item.text = 'Item the second'
-    #     second_item.list = list_
-    #     second_item.save()
-
-    #     saved_list = List.objects.first()
-    #     self.assertEqual(saved_list, list_)
-
-    #     saved_items = Item.objects.all()
-    #     self.assertEqual(saved_items.count(), 2)
-
-    #     first_saved_item = saved_items[0]
-    #     second_saved_item = saved_items[1]
-    #     self.assertEqual(first_saved_item.text, 'The first (ever) list item')
-    #     self.assertEqual(first_saved_item.list, list_)
-    #     self.assertEqual(second_saved_item.text, 'Item the second')
-    #     self.assertEqual(second_saved_item.list, list_)
 
     def test_cannot_save_empty_list_items(self):
         list_ = List.objects.create()
@@ -78,9 +54,16 @@ class ItemModelTest(TestCase):
         item = Item(text='some text')
         self.assertEqual(str(item), 'some text')
 
-
 class ListModelTest(TestCase):
 
     def test_get_absolute_url(self):
         list_ = List.objects.create()
         self.assertEqual(list_.get_absolute_url(), '/todos/%d/' % (list_.id,))
+
+    def test_lists_can_have_owners(self):
+        user = User.objects.create(email='a@b.com')
+        list_ = List.objects.create(owner=user)
+        self.assertIn(list_, user.list_set.all())
+
+    def test_list_owner_is_optional(self):
+        List.objects.create() # should not raise
