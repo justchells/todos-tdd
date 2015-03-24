@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.core.exceptions import ValidationError
 
 from todos.forms import ItemForm, ExistingListItemForm
-from todos.models import Item, List
+from todos.models import List
 
 def home_page(request):
     return render(request, 'home.html', {'form': ItemForm()})
@@ -25,3 +24,6 @@ def new_list(request):
         return redirect(list_)
     else:
         return render(request, 'home.html', {'form': form})
+
+def my_lists(request, email):
+    return render(request, 'my_lists.html')
